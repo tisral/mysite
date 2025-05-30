@@ -89,6 +89,10 @@ async function loadEager(doc) {
   } catch (e) {
     // do nothing
   }
+
+  const hello = document.createElement('p');
+  hello.textContent = 'Hello World';
+  main?.appendChild(hello);
 }
 
 /**
