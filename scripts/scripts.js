@@ -22,13 +22,13 @@ function setupTurnstileForm(main) {
 
   const formContainer = document.createElement('div');
   formContainer.innerHTML = `
-  <form id="login-form">
-    <input type="text" id="username" placeholder="Username" required />
-    <input type="password" id="password" placeholder="Password" required />
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAABgxJ_tKXTLSNDoO" style="width: 300px; height: 65px;"></div>
-    <button id="submit" type="submit">Log in</button>
-  </form>
-`;
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAABgxJ_tKXTLSNDoO"></div>
+      <button id="submit" type="submit">Log in</button>
+    </form>
+  `;
 
   // Add the form to the main element
   main.appendChild(formContainer);

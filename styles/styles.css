@@ -255,3 +255,86 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+
+
+
+
+/* Turnstile widget container - reserve space to prevent layout shift */
+.cf-turnstile {
+    /* Reserve space for the Turnstile widget */
+    min-height: 65px; /* Standard Turnstile widget height */
+    width: 300px; /* Standard Turnstile widget width */
+
+    /* Center the widget */
+    margin: 16px auto;
+
+    /* Optional: Add a loading state */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Optional: Show a placeholder while loading */
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+
+    /* Smooth transition when widget loads */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Remove placeholder styling once Turnstile loads */
+.cf-turnstile:has(iframe),
+.cf-turnstile[data-widget-id] {
+    background-color: transparent;
+    border: none;
+}
+
+/* Form styling to ensure proper spacing */
+#login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#login-form input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#login-form button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#login-form button:hover {
+    background-color: #0056b3;
+}
+
+#login-form button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (width <= 480px) {
+    .cf-turnstile {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    #login-form {
+        padding: 16px;
+    }
+}
