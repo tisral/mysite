@@ -91,7 +91,7 @@ async function loadEager(doc) {
   }
 
   const hello = document.createElement('p');
-  hello.textContent = 'Hello World';
+  hello.textContent = 'Hello World Test';
   main?.appendChild(hello);
 }
 
