@@ -14,6 +14,67 @@ import {
 } from './aem.js';
 
 /**
+ * Creates and sets up the Turnstile login form
+ * @param {Element} main The container element
+ */
+function setupTurnstileForm(main) {
+  console.log('Setting up Turnstile form...');
+
+  const formContainer = document.createElement('div');
+  formContainer.innerHTML = `
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAABgxJ_tKXTLSNDoO"></div>
+      <button id="submit" type="submit">Log in</button>
+    </form>
+  `;
+
+  // Add the form to the main element
+  main.appendChild(formContainer);
+
+  // Wait for Turnstile to be ready
+  const checkTurnstile = setInterval(() => {
+    if (typeof turnstile !== 'undefined') {
+      clearInterval(checkTurnstile);
+      console.log('Turnstile is now loaded, initializing...');
+
+      // Initialize Turnstile
+      turnstile.render('.cf-turnstile', {
+        sitekey: '0x4AAAAAABgxJ_tKXTLSNDoO',
+        callback(token) {
+          console.log('Turnstile callback received token:', token);
+        },
+      });
+
+      // Add event listener for form submission
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log('Form submitted');
+
+        const form = e.target;
+        const username = form.username.value;
+        const password = form.password.value;
+
+        // Retrieve Turnstile token from hidden input
+        const token = form.querySelector('input[name="cf-turnstile-response"]').value;
+        console.log('Turnstile token:', token);
+
+        // Send data to backend
+        const response = await fetch('https://api-gwu2ii6e6a-uc.a.run.app/turnstile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password, token }),
+        });
+
+        const data = await response.text();
+        alert(data);
+      });
+    }
+  }, 100);
+}
+
+/**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
@@ -89,7 +150,8 @@ async function loadEager(doc) {
   } catch (e) {
     // do nothing
   }
-
+  // Add Turnstile form
+  setupTurnstileForm(main);
   const hello = document.createElement('p');
   hello.textContent = 'Hello World Test';
   main?.appendChild(hello);
