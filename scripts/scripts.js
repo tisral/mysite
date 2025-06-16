@@ -25,8 +25,8 @@ function setupTurnstileForm(main) {
     <form id="login-form">
       <input type="text" id="username" placeholder="Username" required />
       <input type="password" id="password" placeholder="Password" required />
-      <div class="cf-turnstile" data-sitekey="0x4AAAAAABgxJ_tKXTLSNDoO"></div>
       <button id="submit" type="submit">Log in</button>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAABgxJ_tKXTLSNDoO"></div>
     </form>
   `;
 
